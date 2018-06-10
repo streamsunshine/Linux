@@ -8,7 +8,8 @@ linux有3种启动方式：System V init，upstart，systemd
 
 最后执行rc.local运行用户需要在开机时进行的操作。
 
-===
+上面为综述，下面为具体
+***
 
 #### 启动相关的文件和目录
 
