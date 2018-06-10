@@ -5,11 +5,12 @@ linux有3种启动方式：System V init，upstart，systemd
 ### System V init
 
 内核在加载完毕后,会调用第一个进程,/sbin/init该进程会读取其配置文件/etc/inittab,并按照该配置文件的语法规则解析其中的每一项,完成对应的操作（执行rc.sysinit进行所有runlevel的系统初始化，启动特定level的服务）,实现系统的初始化.
+
 最后执行rc.local运行用户需要在开机时进行的操作。
 
-上述为综述，下面为详细。
+**上述为综述，下面为详细**
 
-启动相关的文件和目录
+#### 启动相关的文件和目录
 
 其中rc表示run command。.d表示目录
 
@@ -43,7 +44,7 @@ action:init的操作行为
 
 process:命令选项，即应该进行的命令，通常是一些脚本。
 
-通过上述语法，/etc/inittab一般按顺序规定，系统默认的runlevel，使用 [/etc/rc.d/rc.sysinit](#/etc/rc.d/rc.sysinit) 进行系统初始化,各个runlevel特定执行的脚本[/etc/rc.d/rc runlevel](#/etc/rc.d/rc runlevel)，ctrl+alt+del的功能，掉电和掉电恢复需要进行工作，启动6个终端机（tty1-tty6),为特定的runlevel设置启动图形界面的选项。
+通过上述语法，/etc/inittab一般按顺序规定，系统默认的runlevel，使用/etc/rc.d/rc.sysinit进行系统初始化,各个runlevel特定执行的脚本/etc/rc.d/rc runlevel，ctrl+alt+del的功能，掉电和掉电恢复需要进行工作，启动6个终端机（tty1-tty6),为特定的runlevel设置启动图形界面的选项。
 
 #### run level
 
