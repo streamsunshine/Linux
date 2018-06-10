@@ -1,15 +1,15 @@
 ## OS 启动
 
-linux有3种启动方式：System V init，upstart，systemd 
+>linux有3种启动方式：System V init，upstart，systemd 
 
 ### System V init
 
 内核在加载完毕后,会调用第一个进程,/sbin/init该进程会读取其配置文件/etc/inittab,并按照该配置文件的语法规则解析其中的每一项,完成对应的操作（执行rc.sysinit进行所有runlevel的系统初始化，启动特定level的服务）,实现系统的初始化.
 
 最后执行rc.local运行用户需要在开机时进行的操作。
-
-上面为综述，下面为具体
+上面为综述
 ***
+下面为具体
 
 #### 启动相关的文件和目录
 
@@ -29,9 +29,7 @@ linux有3种启动方式：System V init，upstart，systemd
 
 #### /etc/inittab
 
-该配置文件每一行对应一项操作,通过/etc/inittab的语法进行解析.
-
-**语法**
+该配置文件每一行对应一项操作,通过/etc/inittab的语法进行解析，下面介绍语法
 
 inittab文件中的每一项都是如下格式： 
 
