@@ -5,18 +5,18 @@ linux有3种启动方式：**System V init**，**upstart**，**systemd**
 
 ### System V init
 
- 内核在加载完毕后,会调用第一个进程,/sbin/init该进程会读取其配置文件/etc/inittab,并按照该配置文件的语法规则解析其中的每一项,完成对应的操作（如：执行rc.sysinit进行所有runlevel的系统初始化，启动特定level的服务等）,实现系统的初始化.  
+内核在加载完毕后,会调用第一个进程,/sbin/init该进程会读取其配置文件/etc/inittab,并按照该配置文件的语法规则解析其中的每一项,完成对应的操作（如：执行rc.sysinit进行所有runlevel的系统初始化，启动特定level的服务等）,实现系统的初始化.  
 最后执行rc.local运行用户需要在开机时进行的操作。
 
 #### 启动相关的文件和目录
 
 其中rc表示run command。.d表示目录
-  * //sbin/init程序是ELF格式的文件，本身完成的是逐项解析/etc/inittab文件并调用相应的脚本完成功能,具体操作的实现由相应的脚本完成.
-  * //etc/inittab说明/sbin/init程序完成的具体操作
-  * //etc/rc.d/rc runlevel（如rc 5）依次执行/etc/rcrunlevel.d目录下的脚本链接文件，启动相应服务
-  * //etc/rcrunlevel.d（如rc5.d）放置对应runlevel下需要启动服务的脚本链接，以及切换runlevel时需要关闭的服务的脚本链接。
-  * //etc/init.d 放置各种服务的脚本，是/etc/rcrunlevel.d目录下链接文件的目的，具体实现服务的启动和关闭功能。
-  * //etc/rc.local是一个脚本文件，用来给用户设置自己需要在开机时进行的系统设置（如调整亮度）和在开机时启动的系统服务或程序（如tmux）
+    * /sbin/init程序是ELF格式的文件，本身完成的是逐项解析/etc/inittab文件并调用相应的脚本完成功能,具体操作的实现由相应的脚本完成.
+    * /etc/inittab说明/sbin/init程序完成的具体操作
+    * /etc/rc.d/rc runlevel（如rc 5）依次执行/etc/rcrunlevel.d目录下的脚本链接文件，启动相应服务
+    * /etc/rcrunlevel.d（如rc5.d）放置对应runlevel下需要启动服务的脚本链接，以及切换runlevel时需要关闭的服务的脚本链接。
+    * /etc/init.d 放置各种服务的脚本，是/etc/rcrunlevel.d目录下链接文件的目的，具体实现服务的启动和关闭功能。
+    * /etc/rc.local是一个脚本文件，用来给用户设置自己需要在开机时进行的系统设置（如调整亮度）和在开机时启动的系统服务或程序（如tmux）
 
 #### /etc/inittab
 
@@ -24,10 +24,10 @@ linux有3种启动方式：**System V init**，**upstart**，**systemd**
 
 inittab文件中的每一项都是如下格式： 
 >>label:runlevel:action:process 
-  * label:用于说明该项的设置的内容
-  * runlevel:一般用于指明该项对那些runlevel有效。
-  * action:init的操作行为
-  * process:命令选项，即应该进行的命令，通常是一些脚本。
+    * label:用于说明该项的设置的内容
+    * runlevel:一般用于指明该项对那些runlevel有效。
+    * action:init的操作行为
+    * process:命令选项，即应该进行的命令，通常是一些脚本。
 
 通过上述语法，/etc/inittab一般按顺序规定，系统默认的runlevel，使用/etc/rc.d/rc.sysinit进行系统初始化,各个runlevel特定执行的脚本/etc/rc.d/rc runlevel，ctrl+alt+del的功能，掉电和掉电恢复需要进行工作，启动6个终端机（tty1-tty6),为特定的runlevel设置启动图形界面的选项。
 
@@ -54,8 +54,8 @@ upstart中，程序执行单位被称作作业(Job)，所有的init作业都必�
 基于事件的 Upstart 是 /sbin/init 守护进程的替代品，它仅为在需要那些服务的时候启动服务而生，
 
 在Upstart之下，你可以有2种方式**添加系统服务程序**：  
-  * 按照System V 规则编写服务，并置于相应位置。   
-  * 编写Upstart作业配置文件，置于 /etc/init/ 目录之下。
+    * 按照System V 规则编写服务，并置于相应位置。   
+    * 编写Upstart作业配置文件，置于 /etc/init/ 目录之下。
 
 #### upstart工作流程
 
