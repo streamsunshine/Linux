@@ -11,6 +11,7 @@ linux有3种启动方式：**System V init**，**upstart**，**systemd**
 #### 启动相关的文件和目录
 
 其中rc表示run command。.d表示目录
+
   * /sbin/init程序是ELF格式的文件，本身完成的是逐项解析/etc/inittab文件并调用相应的脚本完成功能,具体操作的实现由相应的脚本完成.
   * /etc/inittab说明/sbin/init程序完成的具体操作
   * /etc/rc.d/rc runlevel（如rc 5）依次执行/etc/rcrunlevel.d目录下的脚本链接文件，启动相应服务
