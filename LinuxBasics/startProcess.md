@@ -10,7 +10,7 @@ linux有3种启动方式：**System V init**，**upstart**，**systemd**
 
 #### 启动相关的文件和目录
 
-  其中rc表示run command。.d表示目录
+其中rc表示run command。.d表示目录
 * /sbin/init程序是ELF格式的文件，本身完成的是逐项解析/etc/inittab文件并调用相应的脚本完成功能,具体操作的实现由相应的脚本完成.
 * /etc/inittab说明/sbin/init程序完成的具体操作
 * /etc/rc.d/rc runlevel（如rc 5）依次执行/etc/rcrunlevel.d目录下的脚本链接文件，启动相应服务
@@ -33,7 +33,7 @@ inittab文件中的每一项都是如下格式：
 
 #### run level
 
- 运行级别run level是/etc/inittab中的一项重要的设置。决定着启动的linux的使用场合。Linux预置七种运行级别（0-6）。一般来说，0是关机，1是单用户模式（也就是维护模式），6是重启。运行级别2-5，各个发行版不太一样，对于Debian来说，都是同样的多用户模式（也就是正常模式）。 
+运行级别run level是/etc/inittab中的一项重要的设置。决定着启动的linux的使用场合。Linux预置七种运行级别（0-6）。一般来说，0是关机，1是单用户模式（也就是维护模式），6是重启。运行级别2-5，各个发行版不太一样，对于Debian来说，都是同样的多用户模式（也就是正常模式）。 
 
 #### /etc/rc.d/rc.sysinit
 
