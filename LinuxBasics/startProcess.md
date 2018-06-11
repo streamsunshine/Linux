@@ -11,13 +11,12 @@ linux有3种启动方式：**System V init**，**upstart**，**systemd**
 #### 启动相关的文件和目录
 
 其中rc表示run command。.d表示目录
-
-  * /sbin/init程序是ELF格式的文件，本身完成的是逐项解析/etc/inittab文件并调用相应的脚本完成功能,具体操作的实现由相应的脚本完成.
-  * /etc/inittab说明/sbin/init程序完成的具体操作
-  * /etc/rc.d/rc runlevel（如rc 5）依次执行/etc/rcrunlevel.d目录下的脚本链接文件，启动相应服务
-  * /etc/rcrunlevel.d（如rc5.d）放置对应runlevel下需要启动服务的脚本链接，以及切换runlevel时需要关闭的服务的脚本链接。
-  * /etc/init.d 放置各种服务的脚本，是/etc/rcrunlevel.d目录下链接文件的目的，具体实现服务的启动和关闭功能。
-  * /etc/rc.local是一个脚本文件，用来给用户设置自己需要在开机时进行的系统设置（如调整亮度）和在开机时启动的系统服务或程序（如tmux）
+  * //sbin/init程序是ELF格式的文件，本身完成的是逐项解析/etc/inittab文件并调用相应的脚本完成功能,具体操作的实现由相应的脚本完成.
+  * //etc/inittab说明/sbin/init程序完成的具体操作
+  * //etc/rc.d/rc runlevel（如rc 5）依次执行/etc/rcrunlevel.d目录下的脚本链接文件，启动相应服务
+  * //etc/rcrunlevel.d（如rc5.d）放置对应runlevel下需要启动服务的脚本链接，以及切换runlevel时需要关闭的服务的脚本链接。
+  * //etc/init.d 放置各种服务的脚本，是/etc/rcrunlevel.d目录下链接文件的目的，具体实现服务的启动和关闭功能。
+  * //etc/rc.local是一个脚本文件，用来给用户设置自己需要在开机时进行的系统设置（如调整亮度）和在开机时启动的系统服务或程序（如tmux）
 
 #### /etc/inittab
 
