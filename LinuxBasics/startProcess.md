@@ -1,6 +1,6 @@
 ## OS 启动
 
-  linux有3种启动方式：**System V init**，**upstart**，**systemd** 
+   linux有3种启动方式：**System V init**，**upstart**，**systemd** 
 
 ### System V init
 
