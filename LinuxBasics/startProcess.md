@@ -1,12 +1,12 @@
 ## OS 启动
 
->linux有3种启动方式：**System V init**，**upstart**，**systemd** 
+linux有3种启动方式：**System V init**，**upstart**，**systemd** 
+***
 
 ### System V init
 
-内核在加载完毕后,会调用第一个进程,/sbin/init该进程会读取其配置文件/etc/inittab,并按照该配置文件的语法规则解析其中的每一项,完成对应的操作（执行rc.sysinit进行所有runlevel的系统初始化，启动特定level的服务）,实现系统的初始化.  
+内核在加载完毕后,会调用第一个进程,/sbin/init该进程会读取其配置文件/etc/inittab,并按照该配置文件的语法规则解析其中的每一项,完成对应的操作（如：执行rc.sysinit进行所有runlevel的系统初始化，启动特定level的服务等）,实现系统的初始化.  
 最后执行rc.local运行用户需要在开机时进行的操作。
-***
 
 #### 启动相关的文件和目录
 
@@ -20,12 +20,10 @@
 
 #### /etc/inittab
 
-  该配置文件每一行对应一项操作,通过/etc/inittab的语法进行解析，下面介绍语法
+该配置文件每一行对应一项操作,通过/etc/inittab的语法进行解析，下面介绍语法
 
 inittab文件中的每一项都是如下格式： 
-
-  label:runlevel:action:process 
-
+>>label:runlevel:action:process 
 * label:用于说明该项的设置的内容
 * runlevel:一般用于指明该项对那些runlevel有效。
 * action:init的操作行为
@@ -55,7 +53,7 @@ inittab文件中的每一项都是如下格式：
 upstart中，程序执行单位被称作作业(Job)，所有的init作业都必须将其配置文件（配置文件指出作业什么时候start，什么时候stop）放置于目录/etc/init/之下。Upstart启动时，从 /etc/init/ 目录中读取各个Job的配置文件，获取所有Job。然后发出Startup信号，所有监听这个信号的作业会被执行。在作业执行过程中，作业本身也可以自己发出信号，其他监听这个信号的服务接着就会被启动执行。Upstart通过这样的方式来达到异步和实时控制作业的启动执行。  
 基于事件的 Upstart 是 /sbin/init 守护进程的替代品，它仅为在需要那些服务的时候启动服务而生，
 
->在Upstart之下，你可以有2种方式添加系统服务程序：  
+在Upstart之下，你可以有2种方式**添加系统服务程序**：  
 * 按照System V 规则编写服务，并置于相应位置。   
 * 编写Upstart作业配置文件，置于 /etc/init/ 目录之下。
 
