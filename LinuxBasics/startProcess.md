@@ -1,14 +1,14 @@
-## OS 启动
+# OS 启动
 
 linux有3种启动方式：**System V init**，**upstart**，**systemd** 
 ***
 
-### System V init
+## System V init
 
 内核在加载完毕后,会调用第一个进程,/sbin/init该进程会读取其配置文件/etc/inittab,并按照该配置文件的语法规则解析其中的每一项,完成对应的操作（如：执行rc.sysinit进行所有runlevel的系统初始化，启动特定level的服务等）,实现系统的初始化.  
 最后执行rc.local运行用户需要在开机时进行的操作。
 
-#### 启动相关的文件和目录
+### 启动相关的文件和目录
 
 其中rc表示run command。.d表示目录  
 * /sbin/init程序是ELF格式的文件，本身完成的是逐项解析/etc/inittab文件并调用相应的脚本完成功能,具体操作的实现由相应的脚本完成.
@@ -18,6 +18,7 @@ linux有3种启动方式：**System V init**，**upstart**，**systemd**
 * /etc/init.d 放置各种服务的脚本，是/etc/rcrunlevel.d目录下链接文件的目的，具体实现服务的启动和关闭功能。
 * /etc/rc.local是一个脚本文件，用来给用户设置自己需要在开机时进行的系统设置（如调整亮度）和在开机时启动的系统服务或程序（如tmux）
 
+### 目录及名词解释
 
 #### /etc/inittab
 
@@ -49,7 +50,7 @@ inittab文件中的每一项都是如下格式：
 /etc/rcrunlevel.d文件夹下的链接文件中S开头的表示需要启动的服务，K开头的表示需要关闭的服务（在切换run level的时候需要关闭一些服务），链接文件的名称中的数字表示优先级（因为某些服务依赖于先前的服务）。
 >使用chkconfig处理该目录下的链接文件即可。
 
-### upstart
+## upstart
 
 upstart中，程序执行单位被称作作业(Job)，所有的init作业都必须将其配置文件（配置文件指出作业什么时候start，什么时候stop）放置于目录/etc/init/之下。Upstart启动时，从 /etc/init/ 目录中读取各个Job的配置文件，获取所有Job。然后发出Startup信号，所有监听这个信号的作业会被执行。在作业执行过程中，作业本身也可以自己发出信号，其他监听这个信号的服务接着就会被启动执行。Upstart通过这样的方式来达到异步和实时控制作业的启动执行。  
 基于事件的 Upstart 是 /sbin/init 守护进程的替代品，它仅为在需要那些服务的时候启动服务而生，
@@ -58,11 +59,11 @@ upstart中，程序执行单位被称作作业(Job)，所有的init作业都必�
     * 按照System V 规则编写服务，并置于相应位置。   
     * 编写Upstart作业配置文件，置于 /etc/init/ 目录之下。
 
-#### upstart工作流程
+### upstart工作流程
 
 ![upstart工作流程](./upstartWorkProcess.png)
 
-#### upstart兼容sysvinit
+### upstart兼容sysvinit
 
 由于很多软件包中都包含了sysv的启动脚本,为了兼容这部分程序,upstart提供了兼容机制.在/etc/init/下有rc-sysinit和rc作业,其运行机制是:作业rc-sysinit在收到 “(filesystem and static-network-up) or failsafe-boot” 的信号之后由Upstart启动。一切正常的话，rc-sysinit通过telinit完成运行级别信号的发送。作业rc在收到运行级别信号之后，由Upstart启动。然后rc通过运行/etc/init.d/rc $RUNLEVEL这个命令， 来完成/etc/rcN.d/下相应程序的启动。  
 这样，就完成了兼容sysvinit的过程。
